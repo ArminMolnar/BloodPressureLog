@@ -34,6 +34,7 @@ public class FrameFactory {
         mainFrame.getContentPane().setFont(new Font("Times New Roman", Font.BOLD, 20));
         mainFrame.setLayout(null);
         mainFrame.setVisible(true);
+        mainFrame.setResizable(false);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         mainFrame.add(buttonFactory.getTestConnectionButton());
