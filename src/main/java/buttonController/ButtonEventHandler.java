@@ -93,6 +93,7 @@ public class ButtonEventHandler implements ActionListener {
 
     private void handleAverageRecordButton() throws SQLException {
         frame.add(labelFactory.getAverageLabel());
+        frame.add(labelFactory.getAvgResultLabel());
         calculator.calculateAverage(textFieldFactory);
         refreshFrame();
 
