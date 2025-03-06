@@ -1,8 +1,8 @@
 package service;
 
-import connection.DatabaseConnection;
 import components.LabelFactory;
 import components.TextFieldFactory;
+import connection.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,10 +34,7 @@ public class Calculator {
             if (resultSet.next()) {
 
                 String averagesText = resultSet.getString("result");
-                labelFactory.getAverageLabel().setText("Averages: " + averagesText);
-            } else {
-
-                labelFactory.getAverageLabel().setText("No data found");
+                labelFactory.getAvgResultLabel().setText(averagesText);
             }
         } finally {
             if (resultSet != null) resultSet.close();
