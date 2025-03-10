@@ -51,37 +51,37 @@ public class ButtonEventHandler implements ActionListener {
 
 
     private void handleAddRecord() throws SQLException {
-        String name = storeName();
+        setupInputVerifier();
+        String name = getName();
+        try {
+            int systolic = Integer.parseInt(textFieldFactory.getSystolicField().getText());
+            int diastolic = Integer.parseInt(textFieldFactory.getDiastolicField().getText());
+            int pulse = Integer.parseInt(textFieldFactory.getPulseField().getText());
+            int pulsePressure = Integer.parseInt(textFieldFactory.getPulsePressureField().getText());
 
-        String systolicValue = textFieldFactory.getSystolicField().getText();
-        int systolic = Integer.parseInt(systolicValue);
+            java.util.Date utilDate = new java.util.Date();
+            java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(utilDate.getTime());
 
-        String diastolicValue = String.valueOf(textFieldFactory.getDiastolicField().getText());
-        int diastolic = Integer.parseInt(diastolicValue);
-
-        String pulseValue = String.valueOf(textFieldFactory.getPulseField().getText());
-        int pulse = Integer.parseInt(pulseValue);
-
-        String pulsePressureValue = String.valueOf(textFieldFactory.getPulsePressureField().getText());
-        int pulsePressure = Integer.parseInt(pulsePressureValue);
-
-        java.util.Date utilDate = new java.util.Date();
-        java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(utilDate.getTime());
-
-        controller.addRecord(name, String.valueOf(systolic), String.valueOf(diastolic), String.valueOf(pulse), String.valueOf(pulsePressure), sqlTimestamp);
-        JOptionPane.showMessageDialog(frame, "Record added");
-        clearTextField();
-
+            controller.addRecord(name, String.valueOf(systolic), String.valueOf(diastolic), String.valueOf(pulse), String.valueOf(pulsePressure), sqlTimestamp);
+            JOptionPane.showMessageDialog(frame, "Record added");
+            clearTextField();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(frame, "Invalid input. Enter numbers and only numbers");
+        }
     }
 
     private void handleOkButton() {
-        storeName();
-        frame.remove(textFieldFactory.getNameTextField());
-        frame.remove(buttonFactory.getOkButton());
-        frame.remove(labelFactory.getNameLabel());
-        frame.remove(passwordFieldFactory.getPasswordField());
-        buttonManager.addButtons();
-        refreshFrame();
+        String name = getName();
+        if (name != null && !name.isEmpty() && name.matches("^[a-zA-Z]+$")) {
+            frame.remove(textFieldFactory.getNameTextField());
+            frame.remove(buttonFactory.getOkButton());
+            frame.remove(labelFactory.getNameLabel());
+            frame.remove(passwordFieldFactory.getPasswordField());
+            buttonManager.addButtons();
+            refreshFrame();
+        }else{
+            JOptionPane.showMessageDialog(frame, "Invalid input. Enter letters only.");
+        }
 
     }
 
@@ -137,7 +137,7 @@ public class ButtonEventHandler implements ActionListener {
         textFieldFactory.getPulsePressureField().setText("");
     }
 
-    private String storeName() {
+    private String getName() {
         return textFieldFactory.getNameTextField().getText();
     }
 
@@ -155,6 +155,13 @@ public class ButtonEventHandler implements ActionListener {
         frame.remove(passwordFieldFactory.getPasswordField());
         frame.remove(buttonFactory.getTestConnectionButton());
         clearTextField();
+    }
+
+    private void setupInputVerifier() {
+        textFieldFactory.getSystolicField().setInputVerifier(new UserInputVerifier());
+        textFieldFactory.getDiastolicField().setInputVerifier(new UserInputVerifier());
+        textFieldFactory.getPulseField().setInputVerifier(new UserInputVerifier());
+        textFieldFactory.getPulsePressureField().setInputVerifier(new UserInputVerifier());
     }
 
 }
