@@ -68,7 +68,7 @@ public class LabelFactory {
     }
 
     public static LabelFactory getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             return new LabelFactory();
         }
         return instance;
