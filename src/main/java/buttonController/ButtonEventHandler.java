@@ -2,6 +2,7 @@ package buttonController;
 
 import components.ButtonFactory;
 import components.LabelFactory;
+import components.PasswordFieldFactory;
 import components.TextFieldFactory;
 import connection.DatabaseConnection;
 import controller.Controller;
@@ -20,22 +21,25 @@ public class ButtonEventHandler implements ActionListener {
     private final Controller controller;
     private final Calculator calculator;
     private final ButtonManager buttonManager;
+    private final PasswordFieldFactory passwordFieldFactory;
 
 
-    public ButtonEventHandler(JFrame frame, ButtonFactory buttonFactory, TextFieldFactory textFieldFactory, LabelFactory labelFactory, Controller controller, Calculator calculator) {
+    public ButtonEventHandler(JFrame frame, ButtonFactory buttonFactory, TextFieldFactory textFieldFactory, LabelFactory labelFactory, Controller controller, Calculator calculator, PasswordFieldFactory passwordFieldFactory) {
         this.frame = frame;
         this.buttonFactory = buttonFactory;
         this.textFieldFactory = textFieldFactory;
         this.labelFactory = labelFactory;
         this.controller = controller;
         this.calculator = calculator;
+        this.passwordFieldFactory = passwordFieldFactory;
         this.buttonManager = new ButtonManager(frame, buttonFactory, textFieldFactory, labelFactory);
     }
 
     private void handleTestConnection() {
-        String password = textFieldFactory.getPasswordField().getText();
-        if (DatabaseConnection.testConnection(password)) {
-            DatabaseConnection.setPassword(password);
+        char[] passwordChar = (passwordFieldFactory.getPasswordField().getPassword());
+        String passwordString = new String(passwordChar);
+        if (DatabaseConnection.testConnection(passwordString)) {
+            DatabaseConnection.setPassword(passwordString);
             JOptionPane.showMessageDialog(frame, "Connected to the database");
 
             setupFunctionFrame();
@@ -75,7 +79,7 @@ public class ButtonEventHandler implements ActionListener {
         frame.remove(textFieldFactory.getNameTextField());
         frame.remove(buttonFactory.getOkButton());
         frame.remove(labelFactory.getNameLabel());
-        frame.remove(textFieldFactory.getPasswordField());
+        frame.remove(passwordFieldFactory.getPasswordField());
         buttonManager.addButtons();
         refreshFrame();
 
@@ -126,7 +130,7 @@ public class ButtonEventHandler implements ActionListener {
     }
 
     private void clearTextField() {
-        textFieldFactory.getPasswordField().setText("");
+        passwordFieldFactory.getPasswordField().setText("");
         textFieldFactory.getSystolicField().setText("");
         textFieldFactory.getDiastolicField().setText("");
         textFieldFactory.getPulseField().setText("");
@@ -147,8 +151,8 @@ public class ButtonEventHandler implements ActionListener {
         frame.add(buttonFactory.getOkButton());
         frame.add(labelFactory.getNameLabel());
         refreshFrame();
-        frame.remove(textFieldFactory.getPasswordField());
         frame.remove(labelFactory.getPasswordLabel());
+        frame.remove(passwordFieldFactory.getPasswordField());
         frame.remove(buttonFactory.getTestConnectionButton());
         clearTextField();
     }
