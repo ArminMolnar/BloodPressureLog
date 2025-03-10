@@ -51,7 +51,7 @@ public class ButtonFactory {
     }
 
     public static ButtonFactory getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new ButtonFactory();
         }
         return instance;
