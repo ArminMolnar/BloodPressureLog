@@ -13,6 +13,7 @@ public class FrameFactory {
     private static final TextFieldFactory textFieldFactory = TextFieldFactory.getInstance();
     private static final LabelFactory labelFactory = LabelFactory.getInstance();
     private static final Controller controller = Controller.getInstance();
+    private static final PasswordFieldFactory passwordFieldFactory = PasswordFieldFactory.getInstance();
     private static final Calculator calculator = new Calculator(labelFactory);
 
 
@@ -20,7 +21,7 @@ public class FrameFactory {
 
         JFrame mainFrame = new JFrame();
 
-        ButtonEventHandler buttonController = new ButtonEventHandler(mainFrame, buttonFactory, textFieldFactory, labelFactory, controller, calculator);
+        ButtonEventHandler buttonController = new ButtonEventHandler(mainFrame, buttonFactory, textFieldFactory, labelFactory, controller, calculator, passwordFieldFactory);
 
         buttonFactory.getTestConnectionButton().addActionListener(buttonController);
         buttonFactory.getOkButton().addActionListener(buttonController);
@@ -38,8 +39,8 @@ public class FrameFactory {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         mainFrame.add(buttonFactory.getTestConnectionButton());
-        mainFrame.add(textFieldFactory.getPasswordField());
         mainFrame.add(labelFactory.getPasswordLabel());
+        mainFrame.add(passwordFieldFactory.getPasswordField());
     }
 
 }
