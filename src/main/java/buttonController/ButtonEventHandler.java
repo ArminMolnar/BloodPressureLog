@@ -14,7 +14,6 @@ import java.sql.SQLException;
 
 public class ButtonEventHandler implements ActionListener {
     JFrame frame;
-
     private final ButtonFactory buttonFactory;
     private final TextFieldFactory textFieldFactory;
     private final LabelFactory labelFactory;
