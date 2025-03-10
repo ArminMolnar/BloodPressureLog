@@ -9,8 +9,9 @@ import java.sql.*;
 
 public class Controller {
 
+    private static Controller instance;
 
-    public Controller() {
+    private Controller() {
     }
 
 
@@ -53,7 +54,7 @@ public class Controller {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         String nameInput = textFieldFactory.getNameTextField().getText();
-        TableFactory tableFactory = new TableFactory();
+        TableFactory tableFactory = TableFactory.getInstance();
 
         try {
             connection = DatabaseConnection.getConnection();
@@ -103,5 +104,12 @@ public class Controller {
             if (connection != null) connection.close();
         }
         return false;
+    }
+
+    public static Controller getInstance(){
+        if(instance == null){
+            instance = new Controller();
+        }
+        return instance;
     }
 }
