@@ -9,9 +9,9 @@ import javax.swing.*;
 public class ButtonManager {
 
     JFrame frame;
-    ButtonFactory buttonFactory;
-    TextFieldFactory textFieldFactory;
-    LabelFactory labelFactory;
+    private final ButtonFactory buttonFactory;
+    private final TextFieldFactory textFieldFactory;
+    private final LabelFactory labelFactory;
 
     public ButtonManager(JFrame frame, ButtonFactory buttonFactory, TextFieldFactory textFieldFactory, LabelFactory labelFactory) {
         this.frame = frame;
