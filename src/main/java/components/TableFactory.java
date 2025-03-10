@@ -7,8 +7,9 @@ import java.awt.*;
 public class TableFactory extends JFrame {
 
     private final DefaultTableModel model;
+    private static TableFactory instance;
 
-    public TableFactory() {
+    private TableFactory() {
         setTitle("Blood Pressure Data");
         setSize(800, 600);
         setLayout(new BorderLayout());
@@ -27,4 +28,13 @@ public class TableFactory extends JFrame {
     public DefaultTableModel getModel() {
         return model;
     }
+
+    public static TableFactory getInstance() {
+        if (instance == null) {
+            instance = new TableFactory();
+        }
+        return instance;
+    }
+
+
 }

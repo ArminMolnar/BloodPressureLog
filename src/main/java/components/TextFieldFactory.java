@@ -11,6 +11,7 @@ public class TextFieldFactory {
     private final JTextField pulseField;
     private final JTextField pulsePressureField;
     private final JTextField passwordField;
+    private static TextFieldFactory instance;
 
     public TextFieldFactory() {
         this.nameTextField = createTextField("Name", 170, 100, 100, 30);
@@ -21,7 +22,7 @@ public class TextFieldFactory {
         this.passwordField = createTextField("Password", 170, 100, 100, 30);
     }
 
-    public static JTextField createTextField(String text, int x, int y, int width, int height) {
+    private static JTextField createTextField(String text, int x, int y, int width, int height) {
         JTextField textField = new JTextField();
         textField.setToolTipText(text);
         textField.setBounds(x, y, width, height);
@@ -51,5 +52,12 @@ public class TextFieldFactory {
 
     public JTextField getPasswordField() {
         return passwordField;
+    }
+
+    public static TextFieldFactory getInstance() {
+        if(instance == null) {
+            instance = new TextFieldFactory();
+        }
+        return instance;
     }
 }
