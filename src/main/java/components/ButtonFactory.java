@@ -10,8 +10,9 @@ public class ButtonFactory {
     private final JButton displayRecordButton;
     private final JButton displayAverageButton;
     private final JButton OkButton;
+    private static ButtonFactory instance;
 
-    public ButtonFactory() {
+    private ButtonFactory() {
         this.testConnectionButton = ButtonFactory.createButton("Test connection", 80, 150, 300, 30);
         this.addRecordButton = ButtonFactory.createButton("Add record", 80, 160, 300, 30);
         this.displayRecordButton = ButtonFactory.createButton("Display record", 80, 220, 300, 30);
@@ -20,7 +21,7 @@ public class ButtonFactory {
 
     }
 
-    public static JButton createButton(String text, int x, int y, int width, int height) {
+    private static JButton createButton(String text, int x, int y, int width, int height) {
 
         JButton button = new JButton(text);
         button.setBounds(x, y, width, height);
@@ -47,6 +48,13 @@ public class ButtonFactory {
 
     public JButton getOkButton() {
         return OkButton;
+    }
+
+    public static ButtonFactory getInstance() {
+        if(instance == null) {
+            instance = new ButtonFactory();
+        }
+        return instance;
     }
 
 }
