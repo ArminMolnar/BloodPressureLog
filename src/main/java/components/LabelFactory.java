@@ -13,8 +13,9 @@ public class LabelFactory {
     private final JLabel pulseLabel;
     private final JLabel pulsePressureLabel;
     private final JLabel avgResultLabel;
+    private static LabelFactory instance;
 
-    public LabelFactory() {
+    private LabelFactory() {
         this.nameLabel = createLabel("Name:", 180, 75, 200, 30);
         this.passwordLabel = createLabel("Password:", 180, 75, 200, 30);
         this.averageLabel = createLabel("Average:", 200, 320, 600, 30);
@@ -25,7 +26,7 @@ public class LabelFactory {
         this.pulsePressureLabel = createLabel("Pulse Pressure:", 365, 75, 200, 30);
     }
 
-    public static JLabel createLabel(String text, int x, int y, int width, int height) {
+    private static JLabel createLabel(String text, int x, int y, int width, int height) {
 
         JLabel label = new JLabel(text);
         label.setText(text);
@@ -64,5 +65,12 @@ public class LabelFactory {
 
     public JLabel getAvgResultLabel() {
         return avgResultLabel;
+    }
+
+    public static LabelFactory getInstance() {
+        if(instance == null) {
+            return new LabelFactory();
+        }
+        return instance;
     }
 }
