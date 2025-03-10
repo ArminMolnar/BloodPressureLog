@@ -9,11 +9,11 @@ import java.awt.*;
 
 public class FrameFactory {
 
-    static ButtonFactory buttonFactory = new ButtonFactory();
-    static TextFieldFactory textFieldFactory = new TextFieldFactory();
-    static LabelFactory labelFactory = new LabelFactory();
-    static Controller controller = new Controller();
-    static Calculator calculator = new Calculator(labelFactory);
+    private static final ButtonFactory buttonFactory = ButtonFactory.getInstance();
+    private static final TextFieldFactory textFieldFactory = TextFieldFactory.getInstance();
+    private static final LabelFactory labelFactory = LabelFactory.getInstance();
+    private static final Controller controller = Controller.getInstance();
+    private static final Calculator calculator = new Calculator(labelFactory);
 
 
     public static void createMainFrame() {
