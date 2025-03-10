@@ -10,21 +10,18 @@ public class TextFieldFactory {
     private final JTextField diastolicField;
     private final JTextField pulseField;
     private final JTextField pulsePressureField;
-    private final JTextField passwordField;
     private static TextFieldFactory instance;
 
     public TextFieldFactory() {
-        this.nameTextField = createTextField("Name", 170, 100, 100, 30);
-        this.systolicField = createTextField("Systolic", 50, 100, 50, 30);
-        this.diastolicField = createTextField("Diastolic", 160, 100, 50, 30);
-        this.pulseField = createTextField("Pulse", 270, 100, 50, 30);
-        this.pulsePressureField = createTextField("Pulse Pressure", 380, 100, 50, 30);
-        this.passwordField = createTextField("Password", 170, 100, 100, 30);
+        this.nameTextField = createTextField(170, 100, 100, 30);
+        this.systolicField = createTextField(50, 100, 50, 30);
+        this.diastolicField = createTextField(160, 100, 50, 30);
+        this.pulseField = createTextField(270, 100, 50, 30);
+        this.pulsePressureField = createTextField(380, 100, 50, 30);
     }
 
-    private static JTextField createTextField(String text, int x, int y, int width, int height) {
+    private static JTextField createTextField(int x, int y, int width, int height) {
         JTextField textField = new JTextField();
-        textField.setToolTipText(text);
         textField.setBounds(x, y, width, height);
 
         return textField;
@@ -50,12 +47,8 @@ public class TextFieldFactory {
         return pulseField;
     }
 
-    public JTextField getPasswordField() {
-        return passwordField;
-    }
-
     public static TextFieldFactory getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new TextFieldFactory();
         }
         return instance;
