@@ -9,7 +9,7 @@ public class PasswordFieldFactory {
     private static PasswordFieldFactory instance;
 
     public PasswordFieldFactory() {
-        this.passwordField = createPasswordField(170, 100, 100, 30);
+        this.passwordField = createPasswordField(135, 100, 100, 30);
     }
 
     private static JPasswordField createPasswordField(int x, int y, int width, int height) {
@@ -17,6 +17,7 @@ public class PasswordFieldFactory {
         JPasswordField field = new JPasswordField();
         field.setBounds(x, y, width, height);
         field.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        field.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         return field;
     }
 
