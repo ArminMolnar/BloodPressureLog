@@ -16,22 +16,24 @@ public class LabelFactory {
     private static LabelFactory instance;
 
     private LabelFactory() {
-        this.nameLabel = createLabel("Name:", 180, 75, 200, 30);
-        this.passwordLabel = createLabel("Password:", 180, 75, 200, 30);
-        this.averageLabel = createLabel("Average:", 200, 320, 600, 30);
-        this.avgResultLabel = createLabel("", 20, 340, 600, 30);
-        this.systolicLabel = createLabel("Systolic:", 50, 75, 200, 30);
-        this.diastolicLabel = createLabel("Diastolic:", 160, 75, 200, 30);
-        this.pulseLabel = createLabel("Pulse:", 275, 75, 200, 30);
-        this.pulsePressureLabel = createLabel("Pulse Pressure:", 365, 75, 200, 30);
+        this.nameLabel = createLabel("Name:", 135, 75, 200, 30, new Font("Times New Roman", Font.BOLD, 20));
+        this.passwordLabel = createLabel("Password:", 135, 75, 200, 30, new Font("Times New Roman", Font.BOLD, 20));
+        this.averageLabel = createLabel("Average:", 200, 320, 600, 30, new Font("Times New Roman", Font.BOLD, 14));
+        this.avgResultLabel = createLabel("", 20, 340, 600, 30, new Font("Times New Roman", Font.BOLD, 14));
+        this.systolicLabel = createLabel("Systolic", 50, 75, 100, 30, new Font("Times New Roman", Font.BOLD, 14));
+        this.diastolicLabel = createLabel("Diastolic", 125, 75, 100, 30, new Font("Times New Roman", Font.BOLD, 14));
+        this.pulseLabel = createLabel("Pulse", 215, 75, 100, 30, new Font("Times New Roman", Font.BOLD, 14));
+        this.pulsePressureLabel = createLabel("Pulse Pressure", 275, 75, 100, 30, new Font("Times New Roman", Font.BOLD, 14));
     }
 
-    private static JLabel createLabel(String text, int x, int y, int width, int height) {
+    private static JLabel createLabel(String text, int x, int y, int width, int height, Font font) {
 
         JLabel label = new JLabel(text);
         label.setText(text);
         label.setBounds(x, y, width, height);
-        label.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        label.setFont(font);
+//        label.setFont(new Font("Times New Roman", Font.BOLD, 17));
+        label.setForeground(Color.WHITE);
         return label;
     }
 
