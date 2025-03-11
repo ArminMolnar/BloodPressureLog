@@ -15,15 +15,13 @@ public class FrameFactory {
     private static final Controller controller = Controller.getInstance();
     private static final PasswordFieldFactory passwordFieldFactory = PasswordFieldFactory.getInstance();
     private static final Calculator calculator = new Calculator(labelFactory);
-    private static ImageIcon backgroundImage;
-    private static JLabel backgroundLabel;
 
 
     public void createMainFrame() {
 
         JFrame mainFrame = new JFrame();
-        backgroundImage = new ImageIcon(this.getClass().getResource("/TokyoGhoul.jpg"));
-        backgroundLabel = new JLabel(backgroundImage);
+        ImageIcon backgroundImage = new ImageIcon(this.getClass().getResource("/TokyoGhoul.jpg"));
+        JLabel backgroundLabel = new JLabel(backgroundImage);
         backgroundLabel.setSize(500, 550);
 
 
