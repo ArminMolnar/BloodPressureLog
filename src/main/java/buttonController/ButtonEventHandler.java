@@ -24,6 +24,7 @@ public class ButtonEventHandler implements ActionListener {
     private final PasswordFieldFactory passwordFieldFactory;
 
 
+
     public ButtonEventHandler(JFrame frame, ButtonFactory buttonFactory, TextFieldFactory textFieldFactory, LabelFactory labelFactory, Controller controller, Calculator calculator, PasswordFieldFactory passwordFieldFactory) {
         this.frame = frame;
         this.buttonFactory = buttonFactory;
@@ -33,6 +34,20 @@ public class ButtonEventHandler implements ActionListener {
         this.calculator = calculator;
         this.passwordFieldFactory = passwordFieldFactory;
         this.buttonManager = new ButtonManager(frame, buttonFactory, textFieldFactory, labelFactory);
+    }
+
+    private void handleAction(Object source) throws SQLException {
+        if (source == buttonFactory.getTestConnectionButton()) {
+            handleTestConnection();
+        } else if (source == buttonFactory.getOkButton()) {
+            handleOkButton();
+        } else if (source == buttonFactory.getAddRecordButton()) {
+            handleAddRecord();
+        } else if (source == buttonFactory.getDisplayRecordButton()) {
+            handleDisplayRecordButton();
+        } else if (source == buttonFactory.getDisplayAverageButton()) {
+            handleAverageRecordButton();
+        }
     }
 
     private void handleTestConnection() {
@@ -91,7 +106,6 @@ public class ButtonEventHandler implements ActionListener {
         } else {
             JOptionPane.showMessageDialog(frame, "No data for this person yet." + '\n' + "Enter blood pressure values first");
         }
-
     }
 
     private void handleAverageRecordButton() throws SQLException {
@@ -111,23 +125,7 @@ public class ButtonEventHandler implements ActionListener {
         }
     }
 
-    private void handleAction(Object source) throws SQLException {
-        if (source == buttonFactory.getTestConnectionButton()) {
-            handleTestConnection();
-        } else if (source == buttonFactory.getOkButton()) {
-            handleOkButton();
-        } else if (source == buttonFactory.getAddRecordButton()) {
-            handleAddRecord();
-        } else if (source == buttonFactory.getDisplayRecordButton()) {
-            handleDisplayRecordButton();
-        } else if (source == buttonFactory.getDisplayAverageButton()) {
-            handleAverageRecordButton();
-        }
-    }
 
-    private void handleSQLException(SQLException ex) {
-        JOptionPane.showMessageDialog(frame, ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
-    }
 
     private void clearTextField() {
         passwordFieldFactory.getPasswordField().setText("");
@@ -162,6 +160,10 @@ public class ButtonEventHandler implements ActionListener {
         textFieldFactory.getDiastolicField().setInputVerifier(new UserInputVerifier());
         textFieldFactory.getPulseField().setInputVerifier(new UserInputVerifier());
         textFieldFactory.getPulsePressureField().setInputVerifier(new UserInputVerifier());
+    }
+
+    private void handleSQLException(SQLException ex) {
+        JOptionPane.showMessageDialog(frame, ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
     }
 
 }
