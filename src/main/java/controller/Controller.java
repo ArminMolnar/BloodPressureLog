@@ -1,8 +1,8 @@
 package controller;
 
-import connection.DatabaseConnection;
 import components.TableFactory;
 import components.TextFieldFactory;
+import connection.DatabaseConnection;
 
 import java.sql.*;
 
@@ -62,6 +62,9 @@ public class Controller {
             statement.setString(1, nameInput);
             resultSet = statement.executeQuery();
 
+            tableFactory.getModel().setRowCount(0);
+
+
             while (resultSet.next()) {
                 String name = resultSet.getString("Name");
                 String systolicValue = resultSet.getString("Systolic");
@@ -70,6 +73,8 @@ public class Controller {
                 String pulsePressureValue = resultSet.getString("PulsePressure");
                 Timestamp timeAdded = resultSet.getTimestamp("Date");
                 tableFactory.getModel().addRow(new Object[]{name, systolicValue, diastolicValue, pulseValue, pulsePressureValue, timeAdded});
+                tableFactory.setVisible(true);
+
             }
 
 
@@ -87,6 +92,7 @@ public class Controller {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         String name = textFieldFactory.getNameTextField().getText();
+
 
         try {
             connection = DatabaseConnection.getConnection();
