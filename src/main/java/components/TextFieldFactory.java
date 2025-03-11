@@ -13,7 +13,7 @@ public class TextFieldFactory {
     private final JTextField pulsePressureField;
     private static TextFieldFactory instance;
 
-    public TextFieldFactory() {
+    private TextFieldFactory() {
         this.nameTextField = createTextField(135, 100, 100, 30);
         this.systolicField = createTextField(50, 100, 50, 30);
         this.diastolicField = createTextField(130, 100, 50, 30);
