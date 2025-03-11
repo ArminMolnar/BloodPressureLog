@@ -37,8 +37,6 @@ public class TableFactory extends JFrame {
         table.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(5).setPreferredWidth(135);
 
-
-
         JScrollPane scrollPane = new JScrollPane(table);
 
         add(scrollPane, BorderLayout.CENTER);
