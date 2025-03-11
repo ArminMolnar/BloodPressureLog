@@ -8,7 +8,7 @@ public class PasswordFieldFactory {
     private final JPasswordField passwordField;
     private static PasswordFieldFactory instance;
 
-    public PasswordFieldFactory() {
+    private PasswordFieldFactory() {
         this.passwordField = createPasswordField(135, 100, 100, 30);
     }
 
