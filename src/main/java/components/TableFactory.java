@@ -12,7 +12,7 @@ public class TableFactory extends JFrame {
 
     private TableFactory() {
         setTitle("Blood Pressure Data");
-        setSize(510, 300);
+        setSize(520, 300);
         setResizable(false);
         setLayout(new BorderLayout());
 
@@ -35,7 +35,7 @@ public class TableFactory extends JFrame {
         table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(4).setPreferredWidth(70);
         table.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(5).setPreferredWidth(140);
+        table.getColumnModel().getColumn(5).setPreferredWidth(135);
 
 
 
