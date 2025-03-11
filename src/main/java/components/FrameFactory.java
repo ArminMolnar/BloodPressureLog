@@ -15,11 +15,17 @@ public class FrameFactory {
     private static final Controller controller = Controller.getInstance();
     private static final PasswordFieldFactory passwordFieldFactory = PasswordFieldFactory.getInstance();
     private static final Calculator calculator = new Calculator(labelFactory);
+    private static ImageIcon backgroundImage;
+    private static JLabel backgroundLabel;
 
 
-    public static void createMainFrame() {
+    public void createMainFrame() {
 
         JFrame mainFrame = new JFrame();
+        backgroundImage = new ImageIcon(this.getClass().getResource("/TokyoGhoul.jpg"));
+        backgroundLabel = new JLabel(backgroundImage);
+        backgroundLabel.setSize(500, 550);
+
 
         ButtonEventHandler buttonController = new ButtonEventHandler(mainFrame, buttonFactory, textFieldFactory, labelFactory, controller, calculator, passwordFieldFactory);
 
@@ -30,10 +36,11 @@ public class FrameFactory {
         buttonFactory.getDisplayAverageButton().addActionListener(buttonController);
 
         mainFrame.setTitle("Blood Pressure Log");
-        mainFrame.setSize(500, 600);
-        mainFrame.getContentPane().setBackground(Color.gray);
+        mainFrame.setSize(500, 550);
+
         mainFrame.getContentPane().setFont(new Font("Times New Roman", Font.BOLD, 20));
         mainFrame.setLayout(null);
+        mainFrame.setContentPane(backgroundLabel);
         mainFrame.setVisible(true);
         mainFrame.setResizable(false);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,6 +48,8 @@ public class FrameFactory {
         mainFrame.add(buttonFactory.getTestConnectionButton());
         mainFrame.add(labelFactory.getPasswordLabel());
         mainFrame.add(passwordFieldFactory.getPasswordField());
+
+
     }
 
 }
