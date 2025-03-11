@@ -13,11 +13,11 @@ public class ButtonFactory {
     private static ButtonFactory instance;
 
     private ButtonFactory() {
-        this.testConnectionButton = ButtonFactory.createButton("Test connection", 80, 150, 300, 30);
-        this.addRecordButton = ButtonFactory.createButton("Add record", 80, 160, 300, 30);
-        this.displayRecordButton = ButtonFactory.createButton("Display record", 80, 220, 300, 30);
-        this.displayAverageButton = ButtonFactory.createButton("Display average", 80, 280, 300, 30);
-        this.OkButton = ButtonFactory.createButton("OK", 80, 150, 300, 30);
+        this.testConnectionButton = ButtonFactory.createButton("Test connection", 80, 150, 230, 30);
+        this.addRecordButton = ButtonFactory.createButton("Add record", 80, 160, 230, 30);
+        this.displayRecordButton = ButtonFactory.createButton("Display record", 80, 220, 230, 30);
+        this.displayAverageButton = ButtonFactory.createButton("Display average", 80, 280, 230, 30);
+        this.OkButton = ButtonFactory.createButton("OK", 80, 150, 230, 30);
 
     }
 
@@ -26,6 +26,9 @@ public class ButtonFactory {
         JButton button = new JButton(text);
         button.setBounds(x, y, width, height);
         button.setFont(new Font("Times New Roman", Font.BOLD, 17));
+        button.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        button.setForeground(Color.white);
+        button.setBackground(Color.black);
         return button;
     }
 
