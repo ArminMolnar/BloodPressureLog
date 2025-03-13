@@ -72,7 +72,7 @@ public class ButtonEventHandler implements ActionListener {
             int systolic = Integer.parseInt(textFieldFactory.getSystolicField().getText());
             int diastolic = Integer.parseInt(textFieldFactory.getDiastolicField().getText());
             int pulse = Integer.parseInt(textFieldFactory.getPulseField().getText());
-            int pulsePressure = Integer.parseInt(textFieldFactory.getPulsePressureField().getText());
+            int pulsePressure = systolic - diastolic;
 
             java.util.Date utilDate = new java.util.Date();
             java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(utilDate.getTime());
@@ -132,7 +132,6 @@ public class ButtonEventHandler implements ActionListener {
         textFieldFactory.getSystolicField().setText("");
         textFieldFactory.getDiastolicField().setText("");
         textFieldFactory.getPulseField().setText("");
-        textFieldFactory.getPulsePressureField().setText("");
     }
 
     private String getName() {
@@ -159,7 +158,6 @@ public class ButtonEventHandler implements ActionListener {
         textFieldFactory.getSystolicField().setInputVerifier(new UserInputVerifier());
         textFieldFactory.getDiastolicField().setInputVerifier(new UserInputVerifier());
         textFieldFactory.getPulseField().setInputVerifier(new UserInputVerifier());
-        textFieldFactory.getPulsePressureField().setInputVerifier(new UserInputVerifier());
     }
 
     private void handleSQLException(SQLException ex) {
