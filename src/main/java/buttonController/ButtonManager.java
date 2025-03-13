@@ -32,7 +32,7 @@ public class ButtonManager {
         frame.add(labelFactory.getSystolicLabel());
         frame.add(labelFactory.getDiastolicLabel());
         frame.add(labelFactory.getPulseLabel());
-        //frame.add(labelFactory.getPulsePressureLabel());
+        frame.add(buttonFactory.getReturnButton());
 
     }
 }
