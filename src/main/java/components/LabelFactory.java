@@ -30,7 +30,6 @@ public class LabelFactory {
         label.setText(text);
         label.setBounds(x, y, width, height);
         label.setFont(font);
-//        label.setFont(new Font("Times New Roman", Font.BOLD, 17));
         label.setForeground(Color.WHITE);
         return label;
     }
