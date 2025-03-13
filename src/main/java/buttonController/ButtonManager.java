@@ -2,6 +2,7 @@ package buttonController;
 
 import components.ButtonFactory;
 import components.LabelFactory;
+import components.PasswordFieldFactory;
 import components.TextFieldFactory;
 
 import javax.swing.*;
@@ -12,12 +13,15 @@ public class ButtonManager {
     private final ButtonFactory buttonFactory;
     private final TextFieldFactory textFieldFactory;
     private final LabelFactory labelFactory;
+    private final PasswordFieldFactory passwordFieldFactory;
 
-    public ButtonManager(JFrame frame, ButtonFactory buttonFactory, TextFieldFactory textFieldFactory, LabelFactory labelFactory) {
+
+    public ButtonManager(JFrame frame, ButtonFactory buttonFactory, TextFieldFactory textFieldFactory, LabelFactory labelFactory, PasswordFieldFactory passwordFieldFactory) {
         this.frame = frame;
         this.buttonFactory = buttonFactory;
         this.textFieldFactory = textFieldFactory;
         this.labelFactory = labelFactory;
+        this.passwordFieldFactory = passwordFieldFactory;
     }
 
     public void addButtons() {
@@ -33,6 +37,32 @@ public class ButtonManager {
         frame.add(labelFactory.getDiastolicLabel());
         frame.add(labelFactory.getPulseLabel());
         frame.add(buttonFactory.getReturnButton());
-
     }
+
+    public void addAverageData() {
+        frame.add(labelFactory.getAverageLabel());
+        frame.add(labelFactory.getAvgResultLabel());
+    }
+
+    public void clearTextField() {
+        passwordFieldFactory.getPasswordField().setText("");
+        textFieldFactory.getSystolicField().setText("");
+        textFieldFactory.getDiastolicField().setText("");
+        textFieldFactory.getPulseField().setText("");
+    }
+
+    public void refreshFrame() {
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    public void setupUserSelection() {
+        frame.getContentPane().removeAll();
+        frame.add(textFieldFactory.getNameTextField());
+        frame.add(buttonFactory.getOkButton());
+        frame.add(labelFactory.getNameLabel());
+        refreshFrame();
+    }
+
+
 }

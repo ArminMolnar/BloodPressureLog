@@ -17,23 +17,20 @@ public class ButtonEventHandler implements ActionListener {
     JFrame frame;
     private final ButtonFactory buttonFactory;
     private final TextFieldFactory textFieldFactory;
-    private final LabelFactory labelFactory;
     private final Controller controller;
     private final Calculator calculator;
     private final ButtonManager buttonManager;
     private final PasswordFieldFactory passwordFieldFactory;
 
 
-
     public ButtonEventHandler(JFrame frame, ButtonFactory buttonFactory, TextFieldFactory textFieldFactory, LabelFactory labelFactory, Controller controller, Calculator calculator, PasswordFieldFactory passwordFieldFactory) {
         this.frame = frame;
         this.buttonFactory = buttonFactory;
         this.textFieldFactory = textFieldFactory;
-        this.labelFactory = labelFactory;
         this.controller = controller;
         this.calculator = calculator;
         this.passwordFieldFactory = passwordFieldFactory;
-        this.buttonManager = new ButtonManager(frame, buttonFactory, textFieldFactory, labelFactory);
+        this.buttonManager = new ButtonManager(frame, buttonFactory, textFieldFactory, labelFactory, passwordFieldFactory);
     }
 
     private void handleAction(Object source) throws SQLException {
@@ -49,7 +46,6 @@ public class ButtonEventHandler implements ActionListener {
             handleAverageRecordButton();
         } else if (source == buttonFactory.getReturnButton()) {
             handleReturnButton();
-
         }
     }
 
@@ -60,13 +56,24 @@ public class ButtonEventHandler implements ActionListener {
             DatabaseConnection.setPassword(passwordString);
             JOptionPane.showMessageDialog(frame, "Connected to the database");
 
-            setupUserSelection();
+            buttonManager.setupUserSelection();
 
         } else {
             JOptionPane.showMessageDialog(frame, "Connection failed");
         }
     }
 
+    private void handleOkButton() {
+        String name = getName();
+        if (name != null && !name.isEmpty() && name.matches("^[a-zA-Z]+$")) {
+            frame.getContentPane().removeAll();
+            buttonManager.addButtons();
+            buttonManager.refreshFrame();
+        } else {
+            JOptionPane.showMessageDialog(frame, "Invalid input. Enter letters only.");
+        }
+
+    }
 
     private void handleAddRecord() throws SQLException {
         setupInputVerifier();
@@ -82,22 +89,10 @@ public class ButtonEventHandler implements ActionListener {
 
             controller.addRecord(name, String.valueOf(systolic), String.valueOf(diastolic), String.valueOf(pulse), String.valueOf(pulsePressure), sqlTimestamp);
             JOptionPane.showMessageDialog(frame, "Record added");
-            clearTextField();
+            buttonManager.clearTextField();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(frame, "Invalid input. Enter numbers and only numbers");
         }
-    }
-
-    private void handleOkButton() {
-        String name = getName();
-        if (name != null && !name.isEmpty() && name.matches("^[a-zA-Z]+$")) {
-            frame.getContentPane().removeAll();
-            buttonManager.addButtons();
-            refreshFrame();
-        }else{
-            JOptionPane.showMessageDialog(frame, "Invalid input. Enter letters only.");
-        }
-
     }
 
     private void handleDisplayRecordButton() throws SQLException {
@@ -109,15 +104,14 @@ public class ButtonEventHandler implements ActionListener {
     }
 
     private void handleAverageRecordButton() throws SQLException {
-        frame.add(labelFactory.getAverageLabel());
-        frame.add(labelFactory.getAvgResultLabel());
+        buttonManager.addAverageData();
         calculator.calculateAverage(textFieldFactory);
-        refreshFrame();
+        buttonManager.refreshFrame();
 
     }
 
     private void handleReturnButton() {
-        setupUserSelection();
+        buttonManager.setupUserSelection();
     }
 
     @Override
@@ -129,30 +123,9 @@ public class ButtonEventHandler implements ActionListener {
         }
     }
 
-    private void clearTextField() {
-        passwordFieldFactory.getPasswordField().setText("");
-        textFieldFactory.getSystolicField().setText("");
-        textFieldFactory.getDiastolicField().setText("");
-        textFieldFactory.getPulseField().setText("");
-    }
-
     private String getName() {
         return textFieldFactory.getNameTextField().getText();
     }
-
-    private void refreshFrame() {
-        frame.revalidate();
-        frame.repaint();
-    }
-
-    private void setupUserSelection() {
-        frame.getContentPane().removeAll();
-        frame.add(textFieldFactory.getNameTextField());
-        frame.add(buttonFactory.getOkButton());
-        frame.add(labelFactory.getNameLabel());
-        refreshFrame();
-    }
-
 
     private void setupInputVerifier() {
         textFieldFactory.getSystolicField().setInputVerifier(new UserInputVerifier());
