@@ -1,54 +1,44 @@
 package buttonController;
 
-import components.ButtonFactory;
-import components.LabelFactory;
-import components.PasswordFieldFactory;
-import components.TextFieldFactory;
+import components.*;
 
 import javax.swing.*;
 
 public class ButtonManager {
 
-    JFrame frame;
-    private final ButtonFactory buttonFactory;
-    private final TextFieldFactory textFieldFactory;
-    private final LabelFactory labelFactory;
-    private final PasswordFieldFactory passwordFieldFactory;
+    private final JFrame frame;
+    private final FactoryBundle factory;
 
-
-    public ButtonManager(JFrame frame, ButtonFactory buttonFactory, TextFieldFactory textFieldFactory, LabelFactory labelFactory, PasswordFieldFactory passwordFieldFactory) {
+    public ButtonManager(JFrame frame, FactoryBundle factory) {
         this.frame = frame;
-        this.buttonFactory = buttonFactory;
-        this.textFieldFactory = textFieldFactory;
-        this.labelFactory = labelFactory;
-        this.passwordFieldFactory = passwordFieldFactory;
+        this.factory = factory;
     }
 
     public void addButtons() {
-        frame.add(buttonFactory.getAddRecordButton());
-        frame.add(buttonFactory.getDisplayRecordButton());
-        frame.add(buttonFactory.getDisplayAverageButton());
+        frame.add(factory.getButtonFactory().getAddRecordButton());
+        frame.add(factory.getButtonFactory().getDisplayRecordButton());
+        frame.add(factory.getButtonFactory().getDisplayAverageButton());
 
-        frame.add(textFieldFactory.getSystolicField());
-        frame.add(textFieldFactory.getDiastolicField());
-        frame.add(textFieldFactory.getPulseField());
+        frame.add(factory.getTextFieldFactory().getSystolicField());
+        frame.add(factory.getTextFieldFactory().getDiastolicField());
+        frame.add(factory.getTextFieldFactory().getPulseField());
 
-        frame.add(labelFactory.getSystolicLabel());
-        frame.add(labelFactory.getDiastolicLabel());
-        frame.add(labelFactory.getPulseLabel());
-        frame.add(buttonFactory.getReturnButton());
+        frame.add(factory.getLabelFactory().getSystolicLabel());
+        frame.add(factory.getLabelFactory().getDiastolicLabel());
+        frame.add(factory.getLabelFactory().getPulseLabel());
+        frame.add(factory.getButtonFactory().getReturnButton());
     }
 
     public void addAverageData() {
-        frame.add(labelFactory.getAverageLabel());
-        frame.add(labelFactory.getAvgResultLabel());
+        frame.add(factory.getLabelFactory().getAverageLabel());
+        frame.add(factory.getLabelFactory().getAvgResultLabel());
     }
 
     public void clearTextField() {
-        passwordFieldFactory.getPasswordField().setText("");
-        textFieldFactory.getSystolicField().setText("");
-        textFieldFactory.getDiastolicField().setText("");
-        textFieldFactory.getPulseField().setText("");
+        factory.getPasswordFieldFactory().getPasswordField().setText("");
+        factory.getTextFieldFactory().getSystolicField().setText("");
+        factory.getTextFieldFactory().getDiastolicField().setText("");
+        factory.getTextFieldFactory().getPulseField().setText("");
     }
 
     public void refreshFrame() {
@@ -58,9 +48,9 @@ public class ButtonManager {
 
     public void setupUserSelection() {
         frame.getContentPane().removeAll();
-        frame.add(textFieldFactory.getNameTextField());
-        frame.add(buttonFactory.getOkButton());
-        frame.add(labelFactory.getNameLabel());
+        frame.add(factory.getTextFieldFactory().getNameTextField());
+        frame.add(factory.getButtonFactory().getOkButton());
+        frame.add(factory.getLabelFactory().getNameLabel());
         refreshFrame();
     }
 

@@ -1,9 +1,6 @@
 package buttonController;
 
-import components.ButtonFactory;
-import components.LabelFactory;
-import components.PasswordFieldFactory;
-import components.TextFieldFactory;
+import components.*;
 import connection.DatabaseConnection;
 import controller.Controller;
 import service.Calculator;
@@ -15,42 +12,38 @@ import java.sql.SQLException;
 
 public class ButtonEventHandler implements ActionListener {
     JFrame frame;
-    private final ButtonFactory buttonFactory;
-    private final TextFieldFactory textFieldFactory;
     private final Controller controller;
     private final Calculator calculator;
     private final ButtonManager buttonManager;
-    private final PasswordFieldFactory passwordFieldFactory;
+    private final FactoryBundle factory;
 
 
-    public ButtonEventHandler(JFrame frame, ButtonFactory buttonFactory, TextFieldFactory textFieldFactory, LabelFactory labelFactory, Controller controller, Calculator calculator, PasswordFieldFactory passwordFieldFactory) {
+    public ButtonEventHandler(JFrame frame, Controller controller, Calculator calculator, FactoryBundle factory) {
         this.frame = frame;
-        this.buttonFactory = buttonFactory;
-        this.textFieldFactory = textFieldFactory;
         this.controller = controller;
         this.calculator = calculator;
-        this.passwordFieldFactory = passwordFieldFactory;
-        this.buttonManager = new ButtonManager(frame, buttonFactory, textFieldFactory, labelFactory, passwordFieldFactory);
+        this.factory = factory;
+        this.buttonManager = new ButtonManager(frame, factory);
     }
 
     private void handleAction(Object source) throws SQLException {
-        if (source == buttonFactory.getTestConnectionButton()) {
+        if (source == factory.getButtonFactory().getTestConnectionButton()) {
             handleTestConnection();
-        } else if (source == buttonFactory.getOkButton()) {
+        } else if (source == factory.getButtonFactory().getOkButton()) {
             handleOkButton();
-        } else if (source == buttonFactory.getAddRecordButton()) {
+        } else if (source == factory.getButtonFactory().getAddRecordButton()) {
             handleAddRecord();
-        } else if (source == buttonFactory.getDisplayRecordButton()) {
+        } else if (source == factory.getButtonFactory().getDisplayRecordButton()) {
             handleDisplayRecordButton();
-        } else if (source == buttonFactory.getDisplayAverageButton()) {
+        } else if (source == factory.getButtonFactory().getDisplayAverageButton()) {
             handleAverageRecordButton();
-        } else if (source == buttonFactory.getReturnButton()) {
+        } else if (source == factory.getButtonFactory().getReturnButton()) {
             handleReturnButton();
         }
     }
 
     private void handleTestConnection() {
-        char[] passwordChar = (passwordFieldFactory.getPasswordField().getPassword());
+        char[] passwordChar = (factory.getPasswordFieldFactory().getPasswordField().getPassword());
         String passwordString = new String(passwordChar);
         if (DatabaseConnection.testConnection(passwordString)) {
             DatabaseConnection.setPassword(passwordString);
@@ -59,7 +52,7 @@ public class ButtonEventHandler implements ActionListener {
             buttonManager.setupUserSelection();
 
         } else {
-            JOptionPane.showMessageDialog(frame, "Connection failed");
+            JOptionPane.showMessageDialog(frame, "Connection failed. You might entered the wrong password");
         }
     }
 
@@ -79,9 +72,9 @@ public class ButtonEventHandler implements ActionListener {
         setupInputVerifier();
         String name = getName();
         try {
-            int systolic = Integer.parseInt(textFieldFactory.getSystolicField().getText());
-            int diastolic = Integer.parseInt(textFieldFactory.getDiastolicField().getText());
-            int pulse = Integer.parseInt(textFieldFactory.getPulseField().getText());
+            int systolic = Integer.parseInt(factory.getTextFieldFactory().getSystolicField().getText());
+            int diastolic = Integer.parseInt(factory.getTextFieldFactory().getDiastolicField().getText());
+            int pulse = Integer.parseInt(factory.getTextFieldFactory().getPulseField().getText());
             int pulsePressure = systolic - diastolic;
 
             java.util.Date utilDate = new java.util.Date();
@@ -96,8 +89,8 @@ public class ButtonEventHandler implements ActionListener {
     }
 
     private void handleDisplayRecordButton() throws SQLException {
-        if (controller.checkIfPersonExists(textFieldFactory)) {
-            controller.displayRecord(textFieldFactory);
+        if (controller.checkIfPersonExists(factory.getTextFieldFactory())) {
+            controller.displayRecord(factory.getTextFieldFactory());
         } else {
             JOptionPane.showMessageDialog(frame, "No data for this person yet." + '\n' + "Enter blood pressure values first");
         }
@@ -105,7 +98,7 @@ public class ButtonEventHandler implements ActionListener {
 
     private void handleAverageRecordButton() throws SQLException {
         buttonManager.addAverageData();
-        calculator.calculateAverage(textFieldFactory);
+        calculator.calculateAverage(factory.getTextFieldFactory());
         buttonManager.refreshFrame();
 
     }
@@ -124,13 +117,13 @@ public class ButtonEventHandler implements ActionListener {
     }
 
     private String getName() {
-        return textFieldFactory.getNameTextField().getText();
+        return factory.getTextFieldFactory().getNameTextField().getText();
     }
 
     private void setupInputVerifier() {
-        textFieldFactory.getSystolicField().setInputVerifier(new UserInputVerifier());
-        textFieldFactory.getDiastolicField().setInputVerifier(new UserInputVerifier());
-        textFieldFactory.getPulseField().setInputVerifier(new UserInputVerifier());
+        factory.getTextFieldFactory().getSystolicField().setInputVerifier(new UserInputVerifier());
+        factory.getTextFieldFactory().getDiastolicField().setInputVerifier(new UserInputVerifier());
+        factory.getTextFieldFactory().getPulseField().setInputVerifier(new UserInputVerifier());
     }
 
     private void handleSQLException(SQLException ex) {
