@@ -6,6 +6,7 @@ import service.Calculator;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class FrameFactory {
 
@@ -20,19 +21,19 @@ public class FrameFactory {
     public void createMainFrame() {
 
         JFrame mainFrame = new JFrame();
-        ImageIcon backgroundImage = new ImageIcon(this.getClass().getResource("/TokyoGhoul.jpg"));
+        ImageIcon backgroundImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/TokyoGhoul.jpg")));
         JLabel backgroundLabel = new JLabel(backgroundImage);
         backgroundLabel.setSize(500, 550);
 
+        FactoryBundle factory = new FactoryBundle(buttonFactory, labelFactory, passwordFieldFactory, textFieldFactory);
+        ButtonEventHandler buttonEventHandler = new ButtonEventHandler(mainFrame, controller, calculator, factory);
 
-        ButtonEventHandler buttonController = new ButtonEventHandler(mainFrame, buttonFactory, textFieldFactory, labelFactory, controller, calculator, passwordFieldFactory);
-
-        buttonFactory.getTestConnectionButton().addActionListener(buttonController);
-        buttonFactory.getOkButton().addActionListener(buttonController);
-        buttonFactory.getAddRecordButton().addActionListener(buttonController);
-        buttonFactory.getDisplayRecordButton().addActionListener(buttonController);
-        buttonFactory.getDisplayAverageButton().addActionListener(buttonController);
-        buttonFactory.getReturnButton().addActionListener(buttonController);
+        buttonFactory.getTestConnectionButton().addActionListener(buttonEventHandler);
+        buttonFactory.getOkButton().addActionListener(buttonEventHandler);
+        buttonFactory.getAddRecordButton().addActionListener(buttonEventHandler);
+        buttonFactory.getDisplayRecordButton().addActionListener(buttonEventHandler);
+        buttonFactory.getDisplayAverageButton().addActionListener(buttonEventHandler);
+        buttonFactory.getReturnButton().addActionListener(buttonEventHandler);
 
         mainFrame.setTitle("Blood Pressure Log");
         mainFrame.setSize(500, 550);
@@ -47,7 +48,6 @@ public class FrameFactory {
         mainFrame.add(buttonFactory.getTestConnectionButton());
         mainFrame.add(labelFactory.getPasswordLabel());
         mainFrame.add(passwordFieldFactory.getPasswordField());
-
 
     }
 
