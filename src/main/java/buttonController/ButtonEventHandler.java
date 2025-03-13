@@ -47,6 +47,9 @@ public class ButtonEventHandler implements ActionListener {
             handleDisplayRecordButton();
         } else if (source == buttonFactory.getDisplayAverageButton()) {
             handleAverageRecordButton();
+        } else if (source == buttonFactory.getReturnButton()) {
+            handleReturnButton();
+
         }
     }
 
@@ -57,7 +60,7 @@ public class ButtonEventHandler implements ActionListener {
             DatabaseConnection.setPassword(passwordString);
             JOptionPane.showMessageDialog(frame, "Connected to the database");
 
-            setupFunctionFrame();
+            setupUserSelection();
 
         } else {
             JOptionPane.showMessageDialog(frame, "Connection failed");
@@ -88,10 +91,7 @@ public class ButtonEventHandler implements ActionListener {
     private void handleOkButton() {
         String name = getName();
         if (name != null && !name.isEmpty() && name.matches("^[a-zA-Z]+$")) {
-            frame.remove(textFieldFactory.getNameTextField());
-            frame.remove(buttonFactory.getOkButton());
-            frame.remove(labelFactory.getNameLabel());
-            frame.remove(passwordFieldFactory.getPasswordField());
+            frame.getContentPane().removeAll();
             buttonManager.addButtons();
             refreshFrame();
         }else{
@@ -116,6 +116,10 @@ public class ButtonEventHandler implements ActionListener {
 
     }
 
+    private void handleReturnButton() {
+        setupUserSelection();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
@@ -124,8 +128,6 @@ public class ButtonEventHandler implements ActionListener {
             handleSQLException(ex);
         }
     }
-
-
 
     private void clearTextField() {
         passwordFieldFactory.getPasswordField().setText("");
@@ -143,16 +145,14 @@ public class ButtonEventHandler implements ActionListener {
         frame.repaint();
     }
 
-    private void setupFunctionFrame() {
+    private void setupUserSelection() {
+        frame.getContentPane().removeAll();
         frame.add(textFieldFactory.getNameTextField());
         frame.add(buttonFactory.getOkButton());
         frame.add(labelFactory.getNameLabel());
         refreshFrame();
-        frame.remove(labelFactory.getPasswordLabel());
-        frame.remove(passwordFieldFactory.getPasswordField());
-        frame.remove(buttonFactory.getTestConnectionButton());
-        clearTextField();
     }
+
 
     private void setupInputVerifier() {
         textFieldFactory.getSystolicField().setInputVerifier(new UserInputVerifier());
