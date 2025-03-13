@@ -32,6 +32,7 @@ public class FrameFactory {
         buttonFactory.getAddRecordButton().addActionListener(buttonController);
         buttonFactory.getDisplayRecordButton().addActionListener(buttonController);
         buttonFactory.getDisplayAverageButton().addActionListener(buttonController);
+        buttonFactory.getReturnButton().addActionListener(buttonController);
 
         mainFrame.setTitle("Blood Pressure Log");
         mainFrame.setSize(500, 550);
