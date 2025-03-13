@@ -11,6 +11,7 @@ public class ButtonFactory {
     private final JButton displayAverageButton;
     private final JButton OkButton;
     private static ButtonFactory instance;
+    private final JButton returnButton;
 
     private ButtonFactory() {
         this.testConnectionButton = ButtonFactory.createButton("Test connection", 80, 150, 230, 30);
@@ -18,6 +19,7 @@ public class ButtonFactory {
         this.displayRecordButton = ButtonFactory.createButton("Display record", 80, 220, 230, 30);
         this.displayAverageButton = ButtonFactory.createButton("Display average", 80, 280, 230, 30);
         this.OkButton = ButtonFactory.createButton("OK", 80, 150, 230, 30);
+        this.returnButton = ButtonFactory.createButton("Return", 240, 40, 120, 30);
 
     }
 
@@ -51,6 +53,9 @@ public class ButtonFactory {
 
     public JButton getOkButton() {
         return OkButton;
+    }
+    public JButton getReturnButton() {
+        return returnButton;
     }
 
     public static ButtonFactory getInstance() {
