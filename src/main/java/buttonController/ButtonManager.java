@@ -28,12 +28,11 @@ public class ButtonManager {
         frame.add(textFieldFactory.getSystolicField());
         frame.add(textFieldFactory.getDiastolicField());
         frame.add(textFieldFactory.getPulseField());
-        frame.add(textFieldFactory.getPulsePressureField());
 
         frame.add(labelFactory.getSystolicLabel());
         frame.add(labelFactory.getDiastolicLabel());
         frame.add(labelFactory.getPulseLabel());
-        frame.add(labelFactory.getPulsePressureLabel());
+        //frame.add(labelFactory.getPulsePressureLabel());
 
     }
 }

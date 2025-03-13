@@ -10,15 +10,13 @@ public class TextFieldFactory {
     private final JTextField systolicField;
     private final JTextField diastolicField;
     private final JTextField pulseField;
-    private final JTextField pulsePressureField;
     private static TextFieldFactory instance;
 
     private TextFieldFactory() {
         this.nameTextField = createTextField(135, 100, 100, 30);
-        this.systolicField = createTextField(50, 100, 50, 30);
-        this.diastolicField = createTextField(130, 100, 50, 30);
-        this.pulseField = createTextField(210, 100, 50, 30);
-        this.pulsePressureField = createTextField(290, 100, 50, 30);
+        this.systolicField = createTextField(85, 100, 50, 30);
+        this.diastolicField = createTextField(165, 100, 50, 30);
+        this.pulseField = createTextField(245, 100, 50, 30);
     }
 
     private static JTextField createTextField(int x, int y, int width, int height) {
@@ -38,10 +36,6 @@ public class TextFieldFactory {
 
     public JTextField getDiastolicField() {
         return diastolicField;
-    }
-
-    public JTextField getPulsePressureField() {
-        return pulsePressureField;
     }
 
     public JTextField getPulseField() {

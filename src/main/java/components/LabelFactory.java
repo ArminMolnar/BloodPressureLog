@@ -11,7 +11,6 @@ public class LabelFactory {
     private final JLabel systolicLabel;
     private final JLabel diastolicLabel;
     private final JLabel pulseLabel;
-    private final JLabel pulsePressureLabel;
     private final JLabel avgResultLabel;
     private static LabelFactory instance;
 
@@ -20,10 +19,9 @@ public class LabelFactory {
         this.passwordLabel = createLabel("Password:", 135, 75, 200, 30, new Font("Times New Roman", Font.BOLD, 20));
         this.averageLabel = createLabel("Average:", 200, 320, 600, 30, new Font("Times New Roman", Font.BOLD, 14));
         this.avgResultLabel = createLabel("", 20, 340, 600, 30, new Font("Times New Roman", Font.BOLD, 14));
-        this.systolicLabel = createLabel("Systolic", 50, 75, 100, 30, new Font("Times New Roman", Font.BOLD, 14));
-        this.diastolicLabel = createLabel("Diastolic", 125, 75, 100, 30, new Font("Times New Roman", Font.BOLD, 14));
-        this.pulseLabel = createLabel("Pulse", 215, 75, 100, 30, new Font("Times New Roman", Font.BOLD, 14));
-        this.pulsePressureLabel = createLabel("Pulse Pressure", 275, 75, 100, 30, new Font("Times New Roman", Font.BOLD, 14));
+        this.systolicLabel = createLabel("Systolic", 85, 75, 100, 30, new Font("Times New Roman", Font.BOLD, 14));
+        this.diastolicLabel = createLabel("Diastolic", 160, 75, 100, 30, new Font("Times New Roman", Font.BOLD, 14));
+        this.pulseLabel = createLabel("Pulse", 250, 75, 100, 30, new Font("Times New Roman", Font.BOLD, 14));
     }
 
     private static JLabel createLabel(String text, int x, int y, int width, int height, Font font) {
@@ -55,10 +53,6 @@ public class LabelFactory {
 
     public JLabel getPulseLabel() {
         return pulseLabel;
-    }
-
-    public JLabel getPulsePressureLabel() {
-        return pulsePressureLabel;
     }
 
     public JLabel getPasswordLabel() {
